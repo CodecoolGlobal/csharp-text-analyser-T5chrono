@@ -6,6 +6,8 @@ namespace TextAnalyser
 {
     class WordIterator : ITerator
     {
+        public FileContent WordIteratorOf { get; set; }
+
         public bool HasNext()
         {
             throw new NotImplementedException();

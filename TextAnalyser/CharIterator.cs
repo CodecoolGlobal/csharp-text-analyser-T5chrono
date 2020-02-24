@@ -6,6 +6,8 @@ namespace TextAnalyser
 {
     class CharIterator : ITerator
     {
+        public FileContent CharIteratorOf { get; set; }
+
         public bool HasNext()
         {
             throw new NotImplementedException();
