@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace TextAnalyser
@@ -9,9 +10,24 @@ namespace TextAnalyser
         public string FileContentAsString { get; set; }
         public string[] FileContentAsArray { get; set; }
 
-        public string GetFilename()
+        public FileContent(string path)
         {
-            throw new NotImplementedException();
+            FileContentAsString = ReadFileContent(path);
+            FileContentAsArray = ReadFileContent(path).Split(" ");
+        }
+
+        public string GetFilename(string path)
+        {
+            return Path.GetFileName(path);
+        }
+
+        //TODO exception handling for this method
+        private static string ReadFileContent(string path)
+        {
+            using (var reader = File.OpenText(path))
+            {
+                return reader.ReadToEnd().Replace("\r\n", " ").Replace("  ", " ");
+            }
         }
 
         public ITerator CharIterator()
@@ -23,7 +39,5 @@ namespace TextAnalyser
         {
             return new WordIterator();
         }
-
-        //Otwieranie pliku i podawanie danych
     }
 }
