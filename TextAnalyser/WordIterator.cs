@@ -7,15 +7,21 @@ namespace TextAnalyser
     class WordIterator : ITerator
     {
         public FileContent WordIteratorOf { get; set; }
+        public int index { get; private set; } = 0;
 
         public bool HasNext()
         {
-            throw new NotImplementedException();
+            return (index < WordIteratorOf.FileContentAsArray.Length) ? true : false;
         }
 
         public string MoveNext()
         {
-            throw new NotImplementedException();
+            if (this.HasNext())
+            {
+                index++;
+                return WordIteratorOf.FileContentAsArray[index-1].Trim().ToLower();
+            }
+            return null;
         }
 
         public void Remove()

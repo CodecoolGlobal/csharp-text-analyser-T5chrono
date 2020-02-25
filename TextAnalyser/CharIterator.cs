@@ -7,15 +7,28 @@ namespace TextAnalyser
     class CharIterator : ITerator
     {
         public FileContent CharIteratorOf { get; set; }
+        public int index { get; private set; } =  0;
 
         public bool HasNext()
         {
-            throw new NotImplementedException();
+            return (index < CharIteratorOf.FileContentAsString.Length) ? true : false;
         }
 
         public string MoveNext()
         {
-            throw new NotImplementedException();
+            if (this.HasNext())
+            {
+                if (Char.IsWhiteSpace(CharIteratorOf.FileContentAsString[index]))
+                {
+                    index++;
+                    return Char.ToString(CharIteratorOf.FileContentAsString[index-1]).ToLower();
+                }
+                else
+                {
+                    index++;
+                }       
+            }
+            return null;
         }
 
         public void Remove()

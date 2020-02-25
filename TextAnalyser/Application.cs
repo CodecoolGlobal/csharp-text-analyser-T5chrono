@@ -6,7 +6,12 @@ namespace TextAnalyser
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            View Menu = new View();
+            FileContent TextToAnalyze = new FileContent();
+
+            Menu.Print("Welcome to the Text Analyser.");
+
+
         }
     }
 }

@@ -6,7 +6,8 @@ namespace TextAnalyser
 {
     class FileContent : ITerableText
     {
-        public string FileContents { get; set; }
+        public string FileContentAsString { get; set; }
+        public string[] FileContentAsArray { get; set; }
 
         public string GetFilename()
         {
@@ -15,12 +16,14 @@ namespace TextAnalyser
 
         public ITerator CharIterator()
         {
-            throw new NotImplementedException();
+            return new CharIterator();
         }
 
         public ITerator WordIterator()
         {
-            throw new NotImplementedException();
+            return new WordIterator();
         }
+
+        //Otwieranie pliku i podawanie danych
     }
 }

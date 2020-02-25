@@ -8,7 +8,7 @@ namespace TextAnalyser
     {
         public void Print(string text)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(text);
         }
 
         public void Print(List<string> text)
