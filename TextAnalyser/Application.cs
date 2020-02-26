@@ -8,14 +8,24 @@ namespace TextAnalyser
     {
         static void Main(string[] args)
         {
-            View Menu = new View();
-            FileContent TextToAnalyze = new FileContent(@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\test.txt");
+            string path = String.Empty;
+            if (args.Length > 0)
+            {
+                path = $@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\{args[0]}";
+            }
+            else
+            {
+                throw new ArgumentException("No command line arguments found.");
+            }
 
-            Menu.Print("Welcome to the Text Analyser.");
-            Menu.Print(TextToAnalyze.FileContentAsString);
+            StatisticalAnalysis TextStatistics = new StatisticalAnalysis(path);
 
 
+            //View Menu = new View();
+            //FileContent TextToAnalyze = new FileContent(@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\test.txt");
 
+            //Menu.Print("Welcome to the Text Analyser.");
+            //Menu.Print(TextToAnalyze.FileContentAsString);
         }
     }
 }

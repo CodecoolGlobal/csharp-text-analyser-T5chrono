@@ -30,10 +30,10 @@ namespace TextAnalyser
             }
         }
 
-        public ITerator CharIterator()
+        public CharIterator CharIterator()
         {
             return new CharIterator();
-        }
+         }
 
         public ITerator WordIterator()
         {
