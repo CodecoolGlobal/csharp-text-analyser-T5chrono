@@ -1,6 +1,6 @@
 ﻿namespace TextAnalyser
 {
-    interface ITerator
+    interface IIterator
     {
         bool HasNext();
         string MoveNext();

@@ -4,14 +4,19 @@ using System.Text;
 
 namespace TextAnalyser
 {
-    class CharIterator : ITerator
+    class CharIterator : IIterator
     {
-        public string CharIteratorOf { get; set; }
+        public FileContent CharIteratorOf { get; set; }
         public int index { get; private set; } =  0;
+
+        public CharIterator(FileContent fileContentAsString)
+        {
+            CharIteratorOf = fileContentAsString;
+        }
 
         public bool HasNext()
         {
-            return (index < CharIteratorOf.Length) ? true : false;
+            return (index < CharIteratorOf.FileContentAsString.Length) ? true : false;
         }
 
         public string MoveNext()
@@ -19,7 +24,7 @@ namespace TextAnalyser
             if (this.HasNext())
             {
                 index++;
-                return Char.ToString(CharIteratorOf[index - 1]).ToLower();
+                return Char.ToString(CharIteratorOf.FileContentAsString[index - 1]).ToLower();
             }
             return null;
         }

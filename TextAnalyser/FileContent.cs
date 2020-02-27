@@ -5,20 +5,15 @@ using System.Text;
 
 namespace TextAnalyser
 {
-    class FileContent : ITerableText
+    class FileContent : IIterableText
     {
-        public string FileContentAsString { get; set; }
-        public string[] FileContentAsArray { get; set; }
+        public string FileContentAsString { get; private set; }
+        public string[] FileContentAsArray { get; private set; }
 
         public FileContent(string path)
         {
             FileContentAsString = ReadFileContent(path);
             FileContentAsArray = ReadFileContent(path).Split(" ");
-        }
-
-        public string GetFilename(string path)
-        {
-            return Path.GetFileName(path);
         }
 
         //TODO exception handling for this method
@@ -30,14 +25,19 @@ namespace TextAnalyser
             }
         }
 
-        public CharIterator CharIterator()
+        public string GetFilename(string path)
         {
-            return new CharIterator();
-         }
+            return Path.GetFileName(path);
+        }
 
-        public ITerator WordIterator()
+        public IIterator GetCharIterator()
         {
-            return new WordIterator();
+            return new CharIterator(this);
+        }
+
+        public IIterator GetWordIterator()
+        {
+            return new WordIterator(this);
         }
     }
 }

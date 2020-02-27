@@ -6,7 +6,7 @@ namespace TextAnalyser
 {
     class StatisticalAnalysis
     {
-        public ITerableText StatisticalAnalysisOf { get; set; }
+        public IIterableText StatisticalAnalysisOf { get; set; }
 
         public StatisticalAnalysis(string path)
         {
@@ -19,8 +19,7 @@ namespace TextAnalyser
 
         public int CountOfChars()
         {
-            CharIterator iter = StatisticalAnalysisOf.CharIterator();
-            iter.CharIteratorOf = StatisticalAnalysisOf.FileContentAsString;
+            IIterator iter = StatisticalAnalysisOf.GetCharIterator();
 
             int totalCount = 0;
             while (iter.HasNext())

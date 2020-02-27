@@ -4,10 +4,15 @@ using System.Text;
 
 namespace TextAnalyser
 {
-    class WordIterator : ITerator
+    class WordIterator : IIterator
     {
         public FileContent WordIteratorOf { get; set; }
         public int index { get; private set; } = 0;
+
+        public WordIterator(FileContent fileContentAsArray)
+        {
+            WordIteratorOf = fileContentAsArray;
+        }
 
         public bool HasNext()
         {
