@@ -23,9 +23,23 @@ namespace TextAnalyser
             return totalCount;
         }
 
-        public int CountOf(params string[] words)
+        public Dictionary<string, int> CountOf(params string[] letterOrWords)
         {
-            throw new NotImplementedException();
+            Dictionary<string, int> countOfLexicalElements = new Dictionary<string, int>();
+
+            foreach (var lexicalElement in letterOrWords)
+            {
+                int total_occurrences = 0;
+                while (LexicalIterator.HasNext())
+                {
+                    if (LexicalIterator.MoveNext() == lexicalElement)
+                    {
+                        total_occurrences += 1;
+                    }
+                }
+                countOfLexicalElements.Add(lexicalElement, total_occurrences);
+            }
+            return countOfLexicalElements;
         }
 
         public int DictionarySize()

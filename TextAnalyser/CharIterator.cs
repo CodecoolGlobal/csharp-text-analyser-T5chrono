@@ -14,22 +14,30 @@ namespace TextAnalyser
 
         public bool HasNext()
         {
-            return (index < CharIteratorOf.FileContentAsString.Length) ? true : false;
+            if (index < CharIteratorOf.FileContentAsString.Length)
+            {
+                return true;
+            }
+            else
+            {
+                index = 0;
+                return false;
+            }
         }
 
         public string MoveNext()
         {
             if (this.HasNext())
             {
-                if (!Char.IsWhiteSpace(CharIteratorOf.FileContentAsString[index]))
+                if (Char.IsWhiteSpace(CharIteratorOf.FileContentAsString[index]))
                 {
-                    index++; 
-                    return Char.ToString(CharIteratorOf.FileContentAsString[index - 1]).ToLower();
+                    index += 1;
+                    return MoveNext();
                 }
                 else
                 {
-                    index++;
-                    MoveNext();
+                    index += 1; 
+                    return Char.ToString(CharIteratorOf.FileContentAsString[index - 1]).ToLower();
                 }
             }
             return null;

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace TextAnalyser
 {
@@ -13,7 +14,7 @@ namespace TextAnalyser
         {
             FileName = Path.GetFileName(path);
             FileContentAsString = ReadFileContent(path);
-            FileContentAsArrayOfWords = FileContentAsString.Split(" ");
+            FileContentAsArrayOfWords = FileContentAsString.Split(" ").Select(word => word.Trim()).Where(word => !string.IsNullOrEmpty(word)).ToArray();
         }
 
         //TODO exception handling for this method
@@ -21,7 +22,7 @@ namespace TextAnalyser
         {
             using (var reader = File.OpenText(path))
             {
-                return reader.ReadToEnd().Replace("\r\n", " ").Replace("  ", " ");
+                return reader.ReadToEnd().Replace("\r\n", " ");
             }
         }
 

@@ -15,9 +15,12 @@ namespace TextAnalyser
             throw new NotImplementedException();
         }
 
-        public void Print(Dictionary<string, int> text)
+        public void Print(Dictionary<string, int> userDictionary)
         {
-            throw new NotImplementedException();
+            foreach (KeyValuePair<string, int> item in userDictionary)
+            {
+                Console.WriteLine($"{item.Key} occurs: {item.Value} times");
+            }
         }
     }
 }

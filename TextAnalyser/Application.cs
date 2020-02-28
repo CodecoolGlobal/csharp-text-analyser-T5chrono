@@ -24,6 +24,8 @@ namespace TextAnalyser
             ResultData.Print(TextToAnalyze.GetFilename());
             ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");
             ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");
+            ResultData.Print(CharAnalyzer.CountOf("a", "b", "c"));
+            ResultData.Print(WordAnalyzer.CountOf("a", "ab", "abc"));
         }
     }
 }

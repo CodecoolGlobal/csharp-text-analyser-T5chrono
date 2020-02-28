@@ -14,7 +14,15 @@ namespace TextAnalyser
 
         public bool HasNext()
         {
-            return (index < WordIteratorOf.FileContentAsArrayOfWords.Length) ? true : false;
+            if (index < WordIteratorOf.FileContentAsArrayOfWords.Length)
+            {
+                return true;
+            }
+            else
+            {
+                index = 0;
+                return false;
+            }
         }
 
         public string MoveNext()
