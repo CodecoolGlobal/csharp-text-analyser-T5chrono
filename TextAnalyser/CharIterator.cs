@@ -7,22 +7,30 @@ namespace TextAnalyser
         public FileContent CharIteratorOf { get; set; }
         public int index { get; private set; } =  0;
 
-        public CharIterator(FileContent fileContentAsStringWithoutWhitespaces)
+        public CharIterator(FileContent fileContentAsString)
         {
-            CharIteratorOf = fileContentAsStringWithoutWhitespaces;
+            CharIteratorOf = fileContentAsString;
         }
 
         public bool HasNext()
         {
-            return (index < CharIteratorOf.FileContentAsStringWithoutWhitespaces.Length) ? true : false;
+            return (index < CharIteratorOf.FileContentAsString.Length) ? true : false;
         }
 
         public string MoveNext()
         {
             if (this.HasNext())
             {
-                index++;
-                return Char.ToString(CharIteratorOf.FileContentAsStringWithoutWhitespaces[index - 1]).ToLower();
+                if (!Char.IsWhiteSpace(CharIteratorOf.FileContentAsString[index]))
+                {
+                    index++; 
+                    return Char.ToString(CharIteratorOf.FileContentAsString[index - 1]).ToLower();
+                }
+                else
+                {
+                    index++;
+                    MoveNext();
+                }
             }
             return null;
         }
