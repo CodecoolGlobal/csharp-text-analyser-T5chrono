@@ -1,2 +1,3 @@
-Iterable - Enumerable
-Iterator - Enumerator
+Iterable - Enumerable - Iterator GetIterator()
+(40:55)
+Iterator - Enumerator - bool HasNext(), void Next(), <Item> Current()

@@ -4,6 +4,5 @@
     {
         IIterator GetCharIterator();
         IIterator GetWordIterator();
-        string GetFilename(string path);
     }
 }

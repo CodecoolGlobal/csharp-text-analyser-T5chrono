@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace TextAnalyser
 {
     class FileContent : IIterableText
     {
+        public string FileName { get; private set; }
         public string FileContentAsString { get; private set; }
-        public string[] FileContentAsArray { get; private set; }
+        public string FileContentAsStringWithoutWhitespaces { get; private set; }
+        public string[] FileContentAsArrayOfWords { get; private set; }
+
 
         public FileContent(string path)
         {
+            FileName = Path.GetFileName(path);
             FileContentAsString = ReadFileContent(path);
-            FileContentAsArray = ReadFileContent(path).Split(" ");
+            FileContentAsStringWithoutWhitespaces = FileContentAsString.Replace(" ", "");
+            FileContentAsArrayOfWords = FileContentAsString.Split(" ");
         }
 
         //TODO exception handling for this method
@@ -25,9 +27,9 @@ namespace TextAnalyser
             }
         }
 
-        public string GetFilename(string path)
+        public string GetFilename()
         {
-            return Path.GetFileName(path);
+            return FileName;
         }
 
         public IIterator GetCharIterator()

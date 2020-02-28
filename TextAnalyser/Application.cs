@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
- 
 
 namespace TextAnalyser
 {
@@ -18,7 +16,14 @@ namespace TextAnalyser
                 throw new ArgumentException("No command line arguments found.");
             }
 
-            StatisticalAnalysis TextStatistics = new StatisticalAnalysis(path);
+            FileContent TextToAnalyze = new FileContent(path);
+            View ResultData = new View();
+            StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
+            StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
+
+            ResultData.Print(TextToAnalyze.GetFilename());
+            ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");
+            ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");
         }
     }
 }

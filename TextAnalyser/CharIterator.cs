@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TextAnalyser
 {
@@ -9,14 +7,14 @@ namespace TextAnalyser
         public FileContent CharIteratorOf { get; set; }
         public int index { get; private set; } =  0;
 
-        public CharIterator(FileContent fileContentAsString)
+        public CharIterator(FileContent fileContentAsStringWithoutWhitespaces)
         {
-            CharIteratorOf = fileContentAsString;
+            CharIteratorOf = fileContentAsStringWithoutWhitespaces;
         }
 
         public bool HasNext()
         {
-            return (index < CharIteratorOf.FileContentAsString.Length) ? true : false;
+            return (index < CharIteratorOf.FileContentAsStringWithoutWhitespaces.Length) ? true : false;
         }
 
         public string MoveNext()
@@ -24,7 +22,7 @@ namespace TextAnalyser
             if (this.HasNext())
             {
                 index++;
-                return Char.ToString(CharIteratorOf.FileContentAsString[index - 1]).ToLower();
+                return Char.ToString(CharIteratorOf.FileContentAsStringWithoutWhitespaces[index - 1]).ToLower();
             }
             return null;
         }

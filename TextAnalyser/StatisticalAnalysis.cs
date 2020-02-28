@@ -1,38 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TextAnalyser
 {
     class StatisticalAnalysis
     {
-        public IIterableText StatisticalAnalysisOf { get; set; }
+        private IIterator LexicalIterator { get; set; }
 
-        public StatisticalAnalysis(string path)
+        public StatisticalAnalysis(IIterator lexicalIterator)
         {
-            StatisticalAnalysisOf = new FileContent(path);
-
-            View resultTextStatistics = new View();
-            resultTextStatistics.Print(StatisticalAnalysisOf.GetFilename(path));
-            resultTextStatistics.Print($"Char count: {Convert.ToString(CountOfChars())}");
+            LexicalIterator = lexicalIterator;
         }
 
-        public int CountOfChars()
+        public int Size()
         {
-            IIterator iter = StatisticalAnalysisOf.GetCharIterator();
-
             int totalCount = 0;
-            while (iter.HasNext())
+            while (LexicalIterator.HasNext())
             {
-                if (String.IsNullOrWhiteSpace(iter.MoveNext()))
-                {
-                    iter.MoveNext();
-                }
-                else
-                {
-                    totalCount += 1;
-                    iter.MoveNext();
-                }      
+                totalCount += 1;
+                LexicalIterator.MoveNext();   
             }
             return totalCount;
         }
@@ -47,10 +33,6 @@ namespace TextAnalyser
             throw new NotImplementedException();
         }
 
-        public int Size()
-        {
-            throw new NotImplementedException();
-        }
 
         public ISet<string> OccurMoreThan(int numberOfTimes)
         {
