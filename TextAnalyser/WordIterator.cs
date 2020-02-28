@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TextAnalyser
 {
-    class WordIterator : ITerator
+    class WordIterator : IIterator
     {
         public FileContent WordIteratorOf { get; set; }
         public int index { get; private set; } = 0;
 
+        public WordIterator(FileContent fileContentAsArrayOfWords)
+        {
+            WordIteratorOf = fileContentAsArrayOfWords;
+        }
+
         public bool HasNext()
         {
-            return (index < WordIteratorOf.FileContentAsArray.Length) ? true : false;
+            return (index < WordIteratorOf.FileContentAsArrayOfWords.Length) ? true : false;
         }
 
         public string MoveNext()
@@ -19,7 +22,7 @@ namespace TextAnalyser
             if (this.HasNext())
             {
                 index++;
-                return WordIteratorOf.FileContentAsArray[index-1].Trim().ToLower();
+                return WordIteratorOf.FileContentAsArrayOfWords[index-1].Trim().ToLower();
             }
             return null;
         }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
- 
 
 namespace TextAnalyser
 {
@@ -8,14 +6,24 @@ namespace TextAnalyser
     {
         static void Main(string[] args)
         {
-            View Menu = new View();
-            FileContent TextToAnalyze = new FileContent(@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\test.txt");
+            string path = String.Empty;
+            if (args.Length > 0)
+            {
+                path = $@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\{args[0]}";
+            }
+            else
+            {
+                throw new ArgumentException("No command line arguments found.");
+            }
 
-            Menu.Print("Welcome to the Text Analyser.");
-            Menu.Print(TextToAnalyze.FileContentAsString);
+            FileContent TextToAnalyze = new FileContent(path);
+            View ResultData = new View();
+            StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
+            StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
 
-
-
+            ResultData.Print(TextToAnalyze.GetFilename());
+            ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");
+            ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");
         }
     }
 }

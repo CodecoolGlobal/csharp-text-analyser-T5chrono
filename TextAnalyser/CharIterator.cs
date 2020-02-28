@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TextAnalyser
 {
-    class CharIterator : ITerator
+    class CharIterator : IIterator
     {
         public FileContent CharIteratorOf { get; set; }
         public int index { get; private set; } =  0;
+
+        public CharIterator(FileContent fileContentAsString)
+        {
+            CharIteratorOf = fileContentAsString;
+        }
 
         public bool HasNext()
         {
@@ -18,15 +21,16 @@ namespace TextAnalyser
         {
             if (this.HasNext())
             {
-                if (Char.IsWhiteSpace(CharIteratorOf.FileContentAsString[index]))
+                if (!Char.IsWhiteSpace(CharIteratorOf.FileContentAsString[index]))
                 {
-                    index++;
-                    return Char.ToString(CharIteratorOf.FileContentAsString[index-1]).ToLower();
+                    index++; 
+                    return Char.ToString(CharIteratorOf.FileContentAsString[index - 1]).ToLower();
                 }
                 else
                 {
                     index++;
-                }       
+                    MoveNext();
+                }
             }
             return null;
         }

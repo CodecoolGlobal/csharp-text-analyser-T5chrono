@@ -1,12 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TextAnalyser
 {
     class StatisticalAnalysis
     {
-        public ITerator StatisticalAnalysisOf{ get; set; }
+        private IIterator LexicalIterator { get; set; }
+
+        public StatisticalAnalysis(IIterator lexicalIterator)
+        {
+            LexicalIterator = lexicalIterator;
+        }
+
+        public int Size()
+        {
+            int totalCount = 0;
+            while (LexicalIterator.HasNext())
+            {
+                totalCount += 1;
+                LexicalIterator.MoveNext();   
+            }
+            return totalCount;
+        }
 
         public int CountOf(params string[] words)
         {
@@ -18,10 +33,6 @@ namespace TextAnalyser
             throw new NotImplementedException();
         }
 
-        public int Size()
-        {
-            throw new NotImplementedException();
-        }
 
         public ISet<string> OccurMoreThan(int numberOfTimes)
         {
