@@ -6,7 +6,6 @@ namespace TextAnalyser
     {
         public string FileName { get; private set; }
         public string FileContentAsString { get; private set; }
-        public string FileContentAsStringWithoutWhitespaces { get; private set; }
         public string[] FileContentAsArrayOfWords { get; private set; }
 
 
@@ -14,7 +13,6 @@ namespace TextAnalyser
         {
             FileName = Path.GetFileName(path);
             FileContentAsString = ReadFileContent(path);
-            FileContentAsStringWithoutWhitespaces = FileContentAsString.Replace(" ", "");
             FileContentAsArrayOfWords = FileContentAsString.Split(" ");
         }
 
