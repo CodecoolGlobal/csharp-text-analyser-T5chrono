@@ -9,7 +9,7 @@ namespace TextAnalyser
             string path = String.Empty;
             if (args.Length > 0)
             {
-                path = $@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\{args[0]}";
+                path = $@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TestFiles\{args[0]}";
             }
             else
             {

@@ -1,3 +1,0 @@
-﻿1. Statistical Analysis odnosi się do interfejsu Iterable Text a nie do Iterator. Patrz schemat Iterator Pattern w materiałach Codecool.
-2. Jeżeli tak to interfejs IterableText powinien zawierać metode GetFilename() ponieważ w StatisticalAnalysis odnoszę się do interfejsu a nie do concrete class File Content.
-3. To samo dotyczy właściwości FileContentAsString i FileContentAsArray. 
