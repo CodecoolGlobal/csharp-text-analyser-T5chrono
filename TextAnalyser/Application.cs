@@ -26,6 +26,8 @@ namespace TextAnalyser
             ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");
             ResultData.Print(CharAnalyzer.CountOf("a", "b", "c"));
             ResultData.Print(WordAnalyzer.CountOf("a", "ab", "abc"));
+            ResultData.Print($"Number of unique characters: {Convert.ToString(CharAnalyzer.DictionarySize())}");
+            ResultData.Print($"Number of unique words: {Convert.ToString(WordAnalyzer.DictionarySize())}");
         }
     }
 }

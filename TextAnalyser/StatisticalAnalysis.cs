@@ -44,7 +44,21 @@ namespace TextAnalyser
 
         public int DictionarySize()
         {
-            throw new NotImplementedException();
+            Dictionary<string, int> lexicalDictionary = new Dictionary<string, int>();
+
+            while (LexicalIterator.HasNext())
+            {
+                string newLexicalElement = LexicalIterator.MoveNext();
+                if (lexicalDictionary.ContainsKey(newLexicalElement))
+                {
+                    lexicalDictionary[newLexicalElement] += 1;
+                }
+                else
+                {
+                    lexicalDictionary.Add(newLexicalElement, 1);
+                }
+            }
+            return lexicalDictionary.Count;
         }
 
 
