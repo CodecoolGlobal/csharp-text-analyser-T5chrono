@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TextAnalyser
 {
     class StatisticalAnalysis
     {
         private IIterator LexicalIterator { get; set; }
+        private Dictionary<string, int> LexicalDictionary { get; set; }
 
         public StatisticalAnalysis(IIterator lexicalIterator)
         {
             LexicalIterator = lexicalIterator;
+            LexicalDictionary = GetLexicalDictionary();
         }
 
         public int Size()
@@ -44,8 +47,25 @@ namespace TextAnalyser
 
         public int DictionarySize()
         {
-            Dictionary<string, int> lexicalDictionary = new Dictionary<string, int>();
+            return LexicalDictionary.Count;
+        }
 
+        public IOrderedEnumerable<KeyValuePair<string, int>> OccurMoreThan(int numberOfTimes)
+        {
+            Dictionary<string, int> mostUsedLexicalElements = new Dictionary<string, int>();
+            foreach (var lexicalElement in LexicalDictionary)
+            {
+                if (lexicalElement.Value > numberOfTimes)
+                {
+                    mostUsedLexicalElements.Add(lexicalElement.Key, lexicalElement.Value);
+                }
+            }
+            return mostUsedLexicalElements.OrderBy(x => x.Value);
+        }
+
+        private Dictionary<string, int> GetLexicalDictionary()
+        {
+            Dictionary<string, int> lexicalDictionary = new Dictionary<string, int>();
             while (LexicalIterator.HasNext())
             {
                 string newLexicalElement = LexicalIterator.MoveNext();
@@ -58,13 +78,7 @@ namespace TextAnalyser
                     lexicalDictionary.Add(newLexicalElement, 1);
                 }
             }
-            return lexicalDictionary.Count;
-        }
-
-
-        public ISet<string> OccurMoreThan(int numberOfTimes)
-        {
-            throw new NotImplementedException();
+            return lexicalDictionary;
         }
     }
 }

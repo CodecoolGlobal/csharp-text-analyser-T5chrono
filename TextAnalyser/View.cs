@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TextAnalyser
 {
@@ -18,6 +19,14 @@ namespace TextAnalyser
         public void Print(Dictionary<string, int> userDictionary)
         {
             foreach (KeyValuePair<string, int> item in userDictionary)
+            {
+                Console.WriteLine($"{item.Key} occurs: {item.Value} times");
+            }
+        }
+
+        public void Print(IOrderedEnumerable<KeyValuePair<string, int>> orderedDictionry)
+        {
+            foreach (KeyValuePair<string, int> item in orderedDictionry)
             {
                 Console.WriteLine($"{item.Key} occurs: {item.Value} times");
             }

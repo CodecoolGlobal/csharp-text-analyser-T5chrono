@@ -21,6 +21,8 @@ namespace TextAnalyser
             StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
             StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
 
+            //TODO - nicer printing
+            //TODO - advanced statistics
             ResultData.Print(TextToAnalyze.GetFilename());
             ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");
             ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");
@@ -28,6 +30,8 @@ namespace TextAnalyser
             ResultData.Print(WordAnalyzer.CountOf("a", "ab", "abc"));
             ResultData.Print($"Number of unique characters: {Convert.ToString(CharAnalyzer.DictionarySize())}");
             ResultData.Print($"Number of unique words: {Convert.ToString(WordAnalyzer.DictionarySize())}");
+            ResultData.Print(CharAnalyzer.OccurMoreThan(1));
+            ResultData.Print(WordAnalyzer.OccurMoreThan(0));
         }
     }
 }
