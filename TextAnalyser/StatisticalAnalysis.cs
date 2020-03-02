@@ -7,7 +7,7 @@ namespace TextAnalyser
     class StatisticalAnalysis
     {
         private IIterator LexicalIterator { get; set; }
-        private Dictionary<string, int> LexicalDictionary { get; set; }
+        public Dictionary<string, int> LexicalDictionary { get; set; }
 
         public StatisticalAnalysis(IIterator lexicalIterator)
         {
@@ -15,6 +15,7 @@ namespace TextAnalyser
             LexicalDictionary = GetLexicalDictionary();
         }
 
+        //REQUIRED METHODS
         public int Size()
         {
             int totalCount = 0;
@@ -63,6 +64,7 @@ namespace TextAnalyser
             return mostUsedLexicalElements.OrderBy(x => x.Value);
         }
 
+        //HELPER METHODS FOR OTHER STATISTICS
         private Dictionary<string, int> GetLexicalDictionary()
         {
             Dictionary<string, int> lexicalDictionary = new Dictionary<string, int>();
@@ -79,6 +81,17 @@ namespace TextAnalyser
                 }
             }
             return lexicalDictionary;
+        }
+
+        private int NumberOffAllLexicalElements()
+        {
+            int totalLexicalElements = 0;
+            while (LexicalIterator.HasNext())
+            {
+                totalLexicalElements += 1;
+                LexicalIterator.MoveNext();
+            }
+            return totalLexicalElements;
         }
     }
 }
