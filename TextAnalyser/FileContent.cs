@@ -28,7 +28,7 @@ namespace TextAnalyser
 
         public string GetFilename()
         {
-            return FileName;
+            return $"==={FileName}===";
         }
 
         public IIterator GetCharIterator()

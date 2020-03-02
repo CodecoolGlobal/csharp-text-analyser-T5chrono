@@ -11,25 +11,27 @@ namespace TextAnalyser
             Console.WriteLine(text);
         }
 
-        public void Print(List<string> text)
+        public void Print(List<string> textList)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Most used words(> 1 %): [{String.Join(", ", textList)}]");
         }
 
         public void Print(Dictionary<string, int> userDictionary)
         {
             foreach (KeyValuePair<string, int> item in userDictionary)
             {
-                Console.WriteLine($"{item.Key} occurs: {item.Value} times");
+                Console.WriteLine($"'{item.Key}' count: {item.Value}");
             }
         }
 
-        public void Print(IOrderedEnumerable<KeyValuePair<string, int>> orderedDictionry)
+        public void Print(IOrderedEnumerable<KeyValuePair<string, float>> orderedDictionry)
         {
-            foreach (KeyValuePair<string, int> item in orderedDictionry)
+            string concatonatedString = String.Empty;
+            foreach (var item in orderedDictionry)
             {
-                Console.WriteLine($"{item.Key} occurs: {item.Value} times");
+                concatonatedString += $"[{item.Key.ToUpper()} -> {item.Value.ToString("n2")}] ";
             }
+            Console.WriteLine(concatonatedString.Trim());
         }
     }
 }

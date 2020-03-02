@@ -83,7 +83,7 @@ namespace TextAnalyser
             return lexicalDictionary;
         }
 
-        private int NumberOffAllLexicalElements()
+        private int TotalNumberOfLexicalElements()
         {
             int totalLexicalElements = 0;
             while (LexicalIterator.HasNext())
@@ -92,6 +92,65 @@ namespace TextAnalyser
                 LexicalIterator.MoveNext();
             }
             return totalLexicalElements;
+        }
+
+        public float GetLimitNumberFromPercentage(int percentage)
+        {
+            return TotalNumberOfLexicalElements() / 100 * percentage;
+        }
+
+        public double GetVowelPercentage()
+        {
+            string[] vowels = { "a", "e", "i", "o", "u", };
+            int allVowels = 0;
+            int allLetters = 0;
+            while (LexicalIterator.HasNext())
+            {
+                string investigatedLetter = LexicalIterator.MoveNext();
+                if (vowels.Contains(investigatedLetter))
+                {
+                    allLetters += 1;
+                    allVowels += 1;
+                }
+                else
+                {
+                    allLetters += 1;
+                }
+            }
+            return Math.Round((double)allVowels / allLetters * 100, 2);
+        }
+
+        public double GetRatioOfAtoE()
+        {
+            return Math.Round((double)LexicalDictionary["a"] / LexicalDictionary["e"], 2);
+        }
+
+        public List<string> GetListOfWordsAbovePercentage(int percentage)
+        {
+            List<string> listOfLexicalElementsAbovePercentageUse = new List<string>();
+            float totalNumberOfLexicalElements = (float)TotalNumberOfLexicalElements();
+            foreach (var item in LexicalDictionary)
+            {
+                if (item.Value > GetLimitNumberFromPercentage(percentage))
+                {
+                    listOfLexicalElementsAbovePercentageUse.Add($"{item.Key}");
+                    //Line below used for debugging
+                    //listOfLexicalElementsAbovePercentageUse.Add($"{item.Key}-{(item.Value / totalNumberOfLexicalElements * 100).ToString("n2")}%");
+                } 
+            }
+            listOfLexicalElementsAbovePercentageUse.Sort();
+            return listOfLexicalElementsAbovePercentageUse;
+        }
+
+        public IOrderedEnumerable<KeyValuePair<string, float>> GetPecentageFromOccurences()
+        {
+            var lettersPercentage = new Dictionary<string, float>();
+            float totalNumberOfLexicalElements = (float)TotalNumberOfLexicalElements();
+            foreach (var item in OccurMoreThan(0))
+            {
+                lettersPercentage[item.Key] = item.Value / totalNumberOfLexicalElements * 100;
+            }
+            return lettersPercentage.OrderByDescending(x => x.Value);
         }
     }
 }
