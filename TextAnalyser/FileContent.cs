@@ -13,7 +13,7 @@ namespace TextAnalyser
         public FileContent(string path)
         {
             FileName = Path.GetFileName(path);
-            FileContentAsString = ReadFileContent(path);
+            FileContentAsString = ReadFileContent(path).Trim();
             FileContentAsArrayOfWords = FileContentAsString.Split(" ").Select(word => word.Trim()).Where(word => !string.IsNullOrEmpty(word)).ToArray();
         }
 

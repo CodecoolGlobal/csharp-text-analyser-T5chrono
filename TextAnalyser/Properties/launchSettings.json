@@ -2,7 +2,7 @@
   "profiles": {
     "TextAnalyser": {
       "commandName": "Project",
-      "commandLineArgs": "test2.txt"
+      "commandLineArgs": "test_malville_moby.txt"
     }
   }
 }

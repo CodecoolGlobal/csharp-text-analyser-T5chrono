@@ -67,8 +67,11 @@ namespace TextAnalyser
             while (LexicalIterator.HasNext())
             {
                 string newLexicalElement = LexicalIterator.MoveNext();
+                
                 if (lexicalDictionary.ContainsKey(newLexicalElement))
+                {
                     lexicalDictionary[newLexicalElement] += 1;
+                }  
                 else
                     lexicalDictionary.Add(newLexicalElement, 1);
             }
@@ -120,9 +123,10 @@ namespace TextAnalyser
         public List<string> GetListOfWordsAbovePercentage(int percentage)
         {
             List<string> listOfLexicalElementsAbovePercentageUse = new List<string>();
+            var percentLimit = GetLimitNumberFromPercentage(percentage);
             foreach (var item in LexicalDictionary)
             {
-                if (item.Value > GetLimitNumberFromPercentage(percentage))
+                if (item.Value > percentLimit)
                 {
                     listOfLexicalElementsAbovePercentageUse.Add($"{item.Key}");
                     //Line below used for debugging
