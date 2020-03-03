@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TextAnalyser
 {
@@ -9,23 +10,42 @@ namespace TextAnalyser
 
         static void Main(string[] args)
         {
-            string path = String.Empty;
-            if (args.Length > 0)
+            List<string> paths = GetAllPaths(args);
+            foreach (var path in paths)
             {
-                path = $@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TestFiles\{args[0]}";
+                Stopwatch benchmarkTime = new Stopwatch();
+                benchmarkTime.Start();
+                FileContent TextToAnalyze = new FileContent(path);
+                StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
+                StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
+                benchmarkTime.Stop();
+                TimeSpan ts = benchmarkTime.Elapsed;
+                string elapsedTime = $"{ts.TotalMilliseconds} miliseconds";
+                PrintAllData(TextToAnalyze, CharAnalyzer, WordAnalyzer, elapsedTime);
             }
-            else
+        }
+
+        private static List<string> GetAllPaths(string[] args)
+        {
+            if (args.Length == 0)
             {
+                var Error = new View();
+                Error.Print("You should provide at least one valid file name as line argument");
                 throw new ArgumentException("No command line arguments found.");
             }
+                
+           
+            List<string> paths = new List<string>();
+            for (int i = 0; i < args.Length; i++)
+            {
+                paths.Add($@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TestFiles\{args[i]}");
+            }
+            return paths;
+        }
 
-            FileContent TextToAnalyze = new FileContent(path);
+        private static void PrintAllData(FileContent TextToAnalyze, StatisticalAnalysis CharAnalyzer, StatisticalAnalysis WordAnalyzer, string elapsedTime)
+        {
             View ResultData = new View();
-            StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
-            StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
-
-            //TODO - nicer printing
-            //TODO - operation timer
             ResultData.Print(TextToAnalyze.GetFilename());
             ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");
             ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");
@@ -35,7 +55,7 @@ namespace TextAnalyser
             ResultData.Print($"vowels %: {Convert.ToString(CharAnalyzer.GetVowelPercentage())}");
             ResultData.Print($"a:e count ratio : {Convert.ToString(CharAnalyzer.GetRatioOfAtoE())}");
             ResultData.Print(CharAnalyzer.GetPecentageFromOccurences());
-            //Console.WriteLine(Convert.ToString(CharAnalyzer.LexicalDictionary["e"]));
+            ResultData.Print($"Benchmark time: {elapsedTime}");
         }
     }
 }

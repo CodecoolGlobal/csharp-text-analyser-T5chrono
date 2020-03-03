@@ -24,7 +24,7 @@ namespace TextAnalyser
             }
         }
 
-        public void Print(IOrderedEnumerable<KeyValuePair<string, float>> orderedDictionry)
+        public void Print(IOrderedEnumerable<KeyValuePair<string, double>> orderedDictionry)
         {
             string concatonatedString = String.Empty;
             foreach (var item in orderedDictionry)
