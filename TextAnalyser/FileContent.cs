@@ -20,7 +20,7 @@ namespace TextAnalyser
 
         private static string ReadFileContent(string path)
         {
-            //different method
+            //EDUCATION - below different method for opening file with UTF-8
             //using (var reader = File.OpenText(path))
             using (var reader = new StreamReader(path, Encoding.UTF8))
             {

@@ -132,7 +132,7 @@ namespace TextAnalyser
                 if (item.Value > percentLimit)
                 {
                     listOfLexicalElementsAbovePercentageUse.Add($"{item.Key}");
-                    //Line below used for debugging
+                    //DEBUG - Line below used for debugging
                     //listOfLexicalElementsAbovePercentageUse.Add($"{item.Key}-{(item.Value / totalNumberOfLexicalElements * 100).ToString("n2")}%");
                 } 
             }
