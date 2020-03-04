@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace TextAnalyser
 {
@@ -66,6 +67,8 @@ namespace TextAnalyser
             if (TextToAnalyze.FileContentAsString.Length == 0) throw new ArgumentException($"The file '{Path.GetFileName(path)}' is empty. No statistics available.");
 
             View ResultData = new View();
+            Console.OutputEncoding = Encoding.UTF8;
+
             ResultData.Print(TextToAnalyze.GetFilename());
             ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");
             ResultData.Print($"Word count: {Convert.ToString(WordAnalyzer.Size())}");

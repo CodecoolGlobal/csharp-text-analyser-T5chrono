@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace TextAnalyser
 {
@@ -19,7 +20,9 @@ namespace TextAnalyser
 
         private static string ReadFileContent(string path)
         {
-            using (var reader = File.OpenText(path))
+            //different method
+            //using (var reader = File.OpenText(path))
+            using (var reader = new StreamReader(path, Encoding.UTF8))
             {
                 return reader.ReadToEnd().Replace("\r\n", " ");
             }
