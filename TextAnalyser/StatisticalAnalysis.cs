@@ -117,6 +117,9 @@ namespace TextAnalyser
 
         public double GetRatioOfAtoE()
         {
+            var success = LexicalDictionary.ContainsKey("e");
+            if (!success) throw new ArgumentException("there is no letter 'e' in this file to calculate the ratio");
+
             return Math.Round((double)LexicalDictionary["a"] / LexicalDictionary["e"], 2);
         }
 

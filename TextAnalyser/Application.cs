@@ -15,6 +15,9 @@ namespace TextAnalyser
             {
                 Stopwatch benchmarkTime = new Stopwatch();
                 benchmarkTime.Start();
+                //TODO - exception handling for file management
+                //TODO - empty file
+                //TODO - no a or e letters
                 FileContent TextToAnalyze = new FileContent(path);
                 StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
                 StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
@@ -53,7 +56,14 @@ namespace TextAnalyser
             ResultData.Print(WordAnalyzer.GetListOfWordsAbovePercentage(percentage: 1));
             ResultData.Print(WordAnalyzer.CountOf(InterestingWords));
             ResultData.Print($"vowels %: {Convert.ToString(CharAnalyzer.GetVowelPercentage())}");
-            ResultData.Print($"a:e count ratio : {Convert.ToString(CharAnalyzer.GetRatioOfAtoE())}");
+            try
+            {
+                ResultData.Print($"a:e count ratio : {Convert.ToString(CharAnalyzer.GetRatioOfAtoE())}");
+            }
+            catch (ArgumentException ex)
+            {
+                ResultData.Print($"a:e count ratio : {ex.Message}");
+            }
             ResultData.Print(CharAnalyzer.GetPecentageFromOccurences());
             ResultData.Print($"Benchmark time: {elapsedTime}");
         }

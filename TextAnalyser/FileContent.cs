@@ -17,7 +17,6 @@ namespace TextAnalyser
             FileContentAsArrayOfWords = FileContentAsString.Split(" ").Select(word => word.Trim()).Where(word => !string.IsNullOrEmpty(word)).ToArray();
         }
 
-        //TODO - exception handling for this method
         private static string ReadFileContent(string path)
         {
             using (var reader = File.OpenText(path))
