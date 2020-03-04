@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace TextAnalyser
 {
@@ -11,20 +12,34 @@ namespace TextAnalyser
         static void Main(string[] args)
         {
             List<string> paths = GetAllPaths(args);
+            var Error = new View();
+
             foreach (var path in paths)
             {
-                Stopwatch benchmarkTime = new Stopwatch();
-                benchmarkTime.Start();
-                //TODO - exception handling for file management
-                //TODO - empty file
-                //TODO - no a or e letters
-                FileContent TextToAnalyze = new FileContent(path);
-                StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
-                StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
-                benchmarkTime.Stop();
-                TimeSpan ts = benchmarkTime.Elapsed;
-                string elapsedTime = $"{ts.TotalMilliseconds} miliseconds";
-                PrintAllData(TextToAnalyze, CharAnalyzer, WordAnalyzer, elapsedTime);
+                if (File.Exists(path))
+                {
+                    Stopwatch benchmarkTime = new Stopwatch();
+                    benchmarkTime.Start();
+                    FileContent TextToAnalyze = new FileContent(path);
+                    StatisticalAnalysis CharAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetCharIterator());
+                    StatisticalAnalysis WordAnalyzer = new StatisticalAnalysis(TextToAnalyze.GetWordIterator());
+                    benchmarkTime.Stop();
+                    TimeSpan ts = benchmarkTime.Elapsed;
+                    string elapsedTime = $"{ts.TotalMilliseconds} miliseconds";
+                    
+                    try
+                    {
+                        PrintAllData(TextToAnalyze, CharAnalyzer, WordAnalyzer, elapsedTime, path);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        Error.Print(ex.Message);
+                    }   
+                }
+                else
+                {
+                    Error.Print($"There is no such file {Path.GetFileName(path)}");
+                }  
             }
         }
 
@@ -46,8 +61,10 @@ namespace TextAnalyser
             return paths;
         }
 
-        private static void PrintAllData(FileContent TextToAnalyze, StatisticalAnalysis CharAnalyzer, StatisticalAnalysis WordAnalyzer, string elapsedTime)
+        private static void PrintAllData(FileContent TextToAnalyze, StatisticalAnalysis CharAnalyzer, StatisticalAnalysis WordAnalyzer, string elapsedTime, string path)
         {
+            if (TextToAnalyze.FileContentAsString.Length == 0) throw new ArgumentException($"The file '{Path.GetFileName(path)}' is empty. No statistics available.");
+
             View ResultData = new View();
             ResultData.Print(TextToAnalyze.GetFilename());
             ResultData.Print($"Char count: {Convert.ToString(CharAnalyzer.Size())}");

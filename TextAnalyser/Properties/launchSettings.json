@@ -2,7 +2,7 @@
   "profiles": {
     "TextAnalyser": {
       "commandName": "Project",
-      "commandLineArgs": "test_simple.txt"
+      "commandLineArgs": "test_simple.txt test2.txt"
     }
   }
 }
