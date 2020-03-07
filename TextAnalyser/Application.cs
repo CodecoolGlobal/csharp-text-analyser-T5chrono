@@ -17,7 +17,8 @@ namespace TextAnalyser
 
             foreach (var path in paths)
             {
-                if (File.Exists(path))
+                //if (File.Exists(path))
+                try
                 {
                     Stopwatch benchmarkTime = new Stopwatch();
                     benchmarkTime.Start();
@@ -37,7 +38,8 @@ namespace TextAnalyser
                         Error.Print(ex.Message);
                     }   
                 }
-                else
+                //else
+                catch (FileNotFoundException)
                 {
                     Error.Print($"There is no such file {Path.GetFileName(path)}");
                 }  
@@ -57,7 +59,8 @@ namespace TextAnalyser
             List<string> paths = new List<string>();
             for (int i = 0; i < args.Length; i++)
             {
-                paths.Add($@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TestFiles\{args[i]}");
+                //paths.Add($@"C:\Users\Tomasz.Giela\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TestFiles\{args[i]}");
+                paths.Add($@"C:\Users\tomas\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TestFiles\{args[i]}");
             }
             return paths;
         }
