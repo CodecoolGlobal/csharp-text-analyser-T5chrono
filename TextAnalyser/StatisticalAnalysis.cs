@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TextAnalyser
 {
-    class StatisticalAnalysis
+    public class StatisticalAnalysis
     {
         private IIterator LexicalIterator { get; set; }
         public Dictionary<string, int> LexicalDictionary { get; set; }
@@ -89,7 +89,7 @@ namespace TextAnalyser
             return totalLexicalElements;
         }
 
-        public double GetLimitNumberFromPercentage(int percentage)
+        private double GetLimitNumberFromPercentage(int percentage)
         {
             return TotalNumberOfLexicalElements() / 100 * percentage;
         }

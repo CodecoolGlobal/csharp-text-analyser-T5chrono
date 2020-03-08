@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TextAnalyser
 {
-    class FileContent : IIterableText
+    public class FileContent : IIterableText
     {
         public string FileName { get; private set; }
         public string FileContentAsString { get; private set; }

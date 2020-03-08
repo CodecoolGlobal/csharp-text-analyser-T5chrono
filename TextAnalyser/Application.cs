@@ -43,6 +43,10 @@ namespace TextAnalyser
                 {
                     Error.Print($"There is no such file {Path.GetFileName(path)}");
                 }  
+                catch (Exception)
+                {
+                    Error.Print("Something went wrong. Sorry.");
+                }
             }
         }
 
