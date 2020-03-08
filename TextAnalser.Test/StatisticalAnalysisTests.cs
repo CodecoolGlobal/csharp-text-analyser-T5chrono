@@ -28,6 +28,16 @@ namespace TextAnalser.Test
         }
 
         [Fact]
+        public void TestIfCharSizeIsZeroInNullFile()
+        {
+            //Act
+            var actual_value = _charFixture.sutAnalysisNull.Size();
+
+            //Assert
+            Assert.Equal(0, actual_value);
+        }
+
+        [Fact]
         public void TestIfSizeReturnsProperWordInt()
         {
             //Act
@@ -38,14 +48,20 @@ namespace TextAnalser.Test
         }
 
         [Fact]
+        public void TestIfWordSizeIsZeroInNullFile()
+        {
+            //Act
+            var actual_value = _charFixture.sutAnalysisNull.Size();
+
+            //Assert
+            Assert.Equal(0, actual_value);
+        }
+
+        [Fact]
         public void TestIfDictionarySizeReturnsProperCharDictionarySize()
         {
-            //Arrange
-            var sutText = new FileContent(@"C:\Users\tomas\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TextAnalser.Test\TestFiles\test_simple.txt");
-            var sutAnalysis = new StatisticalAnalysis(sutText.GetCharIterator());
-
             //Act
-            var actual_value = sutAnalysis.DictionarySize();
+            var actual_value = _charFixture.sutAnalysis.DictionarySize();
 
             //Assert
             Assert.Equal(6, actual_value);
