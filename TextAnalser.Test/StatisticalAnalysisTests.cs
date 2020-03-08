@@ -1,21 +1,27 @@
 using System;
 using Xunit;
+using Xunit.Abstractions;   
 using TextAnalyser;
 using System.Collections.Generic;
 
 namespace TextAnalser.Test
 {
-    public class StatisticalAnalysisTests
+    public class StatisticalAnalysisTests : IClassFixture<StatsticalAnalysisCharFixture> , IClassFixture<StatsticalAnalysisWordFixture>
     {
+        private readonly StatsticalAnalysisCharFixture _charFixture;
+        private readonly StatsticalAnalysisWordFixture _wordFixture;
+
+        public StatisticalAnalysisTests(StatsticalAnalysisCharFixture charFixture, StatsticalAnalysisWordFixture wordFixture)
+        {
+            _charFixture = charFixture;
+            _wordFixture = wordFixture;
+        }
+
         [Fact]
         public void TestIfSizeReturnsProperCharInt()
         {
-            //Arrange
-            var sutText = new FileContent(@"C:\Users\tomas\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TextAnalser.Test\TestFiles\test_simple.txt");
-            var sutAnalysis = new StatisticalAnalysis(sutText.GetCharIterator());
-
             //Act
-            var actual_value = sutAnalysis.Size();
+            var actual_value = _charFixture.sutAnalysis.Size();
 
             //Assert
             Assert.Equal(6, actual_value);
@@ -24,12 +30,8 @@ namespace TextAnalser.Test
         [Fact]
         public void TestIfSizeReturnsProperWordInt()
         {
-            //Arrange
-            var sutText = new FileContent(@"C:\Users\tomas\Dropbox\Codecool - C#\csharp-text-analyser-T5chrono\TextAnalser.Test\TestFiles\test_simple.txt");
-            var sutAnalysis = new StatisticalAnalysis(sutText.GetWordIterator());
-
             //Act
-            var actual_value = sutAnalysis.Size();
+            var actual_value = _wordFixture.sutAnalysis.Size();
 
             //Assert
             Assert.Equal(2, actual_value);
@@ -121,6 +123,5 @@ namespace TextAnalser.Test
             //Assert
             Assert.Equal(expected, actual);
         }
-
     }
 }
